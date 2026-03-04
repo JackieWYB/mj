@@ -1,0 +1,8 @@
+<view class="page">
+  <view>{{title}}</view>
+  <button class="btn" bindtap="onLogin">登录(mock)</button>
+  <button class="btn" bindtap="onCreateRoom">创建房间</button>
+  <button class="btn" bindtap="onJoinRoom">加入房间</button>
+  <view>token: {{token}}</view>
+  <view>roomId: {{roomId}}</view>
+</view>

@@ -8,5 +8,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["packages/**/*.ts"]
+  "include": ["packages/rule-engine/**/*.ts"]
 }

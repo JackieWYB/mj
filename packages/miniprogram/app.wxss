@@ -1,0 +1,2 @@
+.page { padding: 24rpx; }
+.btn { margin: 12rpx 0; background: #2f80ed; color: #fff; }

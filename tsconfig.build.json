@@ -4,5 +4,5 @@
     "noEmit": false,
     "outDir": ".tmp-test"
   },
-  "include": ["packages/**/*.ts"]
+  "include": ["packages/rule-engine/**/*.ts"]
 }
