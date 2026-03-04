@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "大厅",
+  "usingComponents": {
+    "room-entry": "/components/room-entry/index"
+  }
+}

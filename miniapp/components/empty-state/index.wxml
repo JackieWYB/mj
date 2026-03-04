@@ -1,0 +1,1 @@
+<view class="empty">{{text || '暂无数据'}}</view>

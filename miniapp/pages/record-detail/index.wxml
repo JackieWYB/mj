@@ -1,0 +1,5 @@
+<view class="page">
+  <view class="card">战绩ID: {{detail.id}}</view>
+  <view class="card">玩家与分数：{{detail.scoreText}}</view>
+  <button class="btn-primary" bindtap="onReplay">进入回放</button>
+</view>

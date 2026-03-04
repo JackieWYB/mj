@@ -1,0 +1,1 @@
+input { border: 1px solid #ddd; border-radius: 8rpx; padding: 12rpx; margin-bottom: 12rpx; }

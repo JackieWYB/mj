@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/home/index",
+    "pages/activity/index",
+    "pages/records/index",
+    "pages/record-detail/index",
+    "pages/shop/index",
+    "pages/settings/index",
+    "pages/support/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "卡五星",
+    "navigationBarBackgroundColor": "#1f3a5f",
+    "navigationBarTextStyle": "white"
+  },
+  "style": "v2"
+}

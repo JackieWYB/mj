@@ -1,0 +1,4 @@
+<view class="page">
+  <view class="card">公告列表（待接入）</view>
+  <button open-type="contact">联系客服</button>
+</view>
