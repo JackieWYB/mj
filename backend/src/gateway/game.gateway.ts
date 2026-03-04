@@ -34,9 +34,9 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     // 断线重连：携带 lastAckSeq，返回 snapshot + delta
     const restore = await this.roomService.tryReconnect(user.uid);
     if (restore) {
-      client.send(JSON.stringify({ op: 'room.state_snapshot', payload: restore.snapshot }));
+      client.send(JSON.stringify({ type: 'S_STATE_SNAPSHOT', payload: restore.snapshot }));
       for (const evt of restore.deltaEvents) {
-        client.send(JSON.stringify({ op: 'room.event_push', payload: evt }));
+        client.send(JSON.stringify({ type: 'S_DELTA_EVENT', payload: evt }));
       }
     }
   }
@@ -47,38 +47,38 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @UseGuards(WsAuthGuard)
-  @SubscribeMessage('heartbeat.ping')
+  @SubscribeMessage('C_HEARTBEAT')
   onPing(@ConnectedSocket() client: WebSocket) {
-    client.send(JSON.stringify({ op: 'heartbeat.pong', ts: Date.now(), payload: {} }));
+    client.send(JSON.stringify({ type: 'S_HEARTBEAT', ts: Date.now(), payload: {} }));
   }
 
   @UseGuards(WsAuthGuard)
-  @SubscribeMessage('room.join')
+  @SubscribeMessage('C_ROOM_JOIN')
   async onJoin(@ConnectedSocket() client: WebSocket, @MessageBody() msg: WsEnvelope<{ roomId: string }>) {
     const uid = (client as any).uid as string;
     const state = await this.roomService.joinRoom(msg.payload.roomId, uid);
-    client.send(JSON.stringify({ op: 'room.state_snapshot', payload: state }));
+    client.send(JSON.stringify({ type: 'S_STATE_SNAPSHOT', payload: state }));
   }
 
   @UseGuards(WsAuthGuard)
-  @SubscribeMessage('room.action')
+  @SubscribeMessage('C_ACTION')
   async onAction(@ConnectedSocket() client: WebSocket, @MessageBody() msg: WsEnvelope<ActionPayload>) {
     const uid = (client as any).uid as string;
-    await this.riskService.checkActionRate(uid, msg.op);
+    await this.riskService.checkActionRate(uid, msg.type);
     await this.roomService.enqueueAction({
-      roomId: msg.payload.roomId,
+      roomId: msg.rid,
       uid,
       actionId: msg.payload.actionId,
-      actionType: msg.payload.actionType,
+      actionType: msg.payload.action,
       data: msg.payload.data,
       ts: msg.ts,
     });
   }
 
   @UseGuards(WsAuthGuard)
-  @SubscribeMessage('room.ack')
+  @SubscribeMessage('C_ACK')
   async onAck(@ConnectedSocket() client: WebSocket, @MessageBody() msg: WsEnvelope<AckPayload>) {
     const uid = (client as any).uid as string;
-    await this.roomService.updateAck(msg.payload.roomId, uid, msg.payload.lastAckSeq);
+    await this.roomService.updateAck(msg.rid, uid, msg.payload.lastAckSeq);
   }
 }
