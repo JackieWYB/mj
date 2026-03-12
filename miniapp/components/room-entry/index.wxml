@@ -1,0 +1,4 @@
+<view class="card">
+  <input placeholder="输入房号" bindinput="onInput" />
+  <button class="btn-primary" bindtap="onJoin">加入房间</button>
+</view>

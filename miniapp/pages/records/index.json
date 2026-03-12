@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "战绩",
+  "usingComponents": {
+    "loading-view": "/components/loading-view/index",
+    "empty-state": "/components/empty-state/index"
+  }
+}

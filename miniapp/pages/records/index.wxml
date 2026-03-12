@@ -1,0 +1,10 @@
+<view class="page">
+  <loading-view loading="{{loading}}" />
+  <block wx:if="{{!loading && list.length}}">
+    <view class="card" wx:for="{{list}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+      <view>对局 {{item.id}}</view>
+      <view>{{item.createdAt}}</view>
+    </view>
+  </block>
+  <empty-state wx:if="{{!loading && !list.length}}" text="暂无战绩" />
+</view>
